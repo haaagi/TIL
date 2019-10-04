@@ -1,0 +1,26 @@
+{% extends 'home/base.html' %}  
+<!-- # 이걸 써줘야 base.html 로 간다. -->
+{% block title %}
+    Greetin page :)
+{% endblock %}
+
+{% block body %}
+    <h1>질문지</h1>
+    <form action="{% url 'home:answer' %}">
+        <div>
+            <label for="q1">내 생일은?</label>
+            <input id="q1" name="q1" type="text">
+        </div>
+        
+        <div>
+            <label for="q2">내 신발사이즈는?</label>
+            <input id="q2" name="q2" type="text">
+        </div>
+        
+        <div>
+            <label for="q3">내 혈액형은?</label>
+            <input id="q3" name="q3" type="text">
+        </div>
+        <input type="submit">
+    </form>
+{% endblock %}
