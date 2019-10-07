@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_extensions', # 이건 반드시 _ 써줘야한다.
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
