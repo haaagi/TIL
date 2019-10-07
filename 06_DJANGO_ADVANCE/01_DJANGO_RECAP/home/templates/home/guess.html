@@ -6,7 +6,8 @@
 
 {% block body %}
     <h1>질문지</h1>
-    <form action="{% url 'home:answer' %}">
+    <form action="{% url 'home:answer' %}" method="POST">  <!-- method = post 하면 바로 못본다. 보안되있는거// 이거 하려면 csrf_token 해줘야한다. -->
+        {% csrf_token %}
         <div>
             <label for="q1">내 생일은?</label>
             <input id="q1" name="q1" type="text">

@@ -13,10 +13,10 @@ def index(request):
 
 def answer(request):
     count = 0
-    if request.GET.get('q1') == '0115':
+    if request.POST.get('q1') == '0115':
         count += 1
-    if request.GET.get('q2') == '275':
+    if request.POST.get('q2') == '275':
         count += 1
-    if request.GET.get('q3') == 'B':
+    if request.POST.get('q3') == 'B':
         count += 1
     return render(request, 'home/answer.html', {'count':count})
