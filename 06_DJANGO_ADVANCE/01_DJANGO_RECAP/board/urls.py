@@ -8,10 +8,11 @@ urlpatterns = [
     # Read 글 목록  render
     path('articles/', views.list, name='list'),
     # Read글 상세 render
-    path('articles/<int:id>/', views.detail, name='detail')
+    path('articles/<int:id>/', views.detail, name='detail'),
     # Create 글 쓰기 render
+    path('articles/new/', views.new, name='new'),
     # Create글 저장
-
+    path('articles/create/', views.create, name='create'),
     # Update 글 수정 render
     # Update 글 실제수정
 
