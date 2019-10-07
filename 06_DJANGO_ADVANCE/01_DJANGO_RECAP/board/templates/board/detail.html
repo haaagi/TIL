@@ -9,4 +9,23 @@ Article detail
     <p>
         {{ article.content}}
     </p>
+    <div>
+        <a href="{% url 'board:edit' article.id %}">
+            <button>Edit</button>
+        </a>
+    </div>
+    <div>
+        <form action="{% url 'board:delete' article.id %}" method="POST">
+            {% csrf_token %}
+            <input id="delButton" type="submit" value="삭제">
+        </form>
+    </div>
+
+    <script>
+        const deleteButton = document.querySelector('#delButton');
+        function writeHi () {
+            document.write('hi');
+        }
+        delButton.addEventListener('mouseover', writeHi );
+    </script>
 {% endblock %}
