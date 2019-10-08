@@ -1,0 +1,25 @@
+{% extends 'classroom/base.html' %}
+{% block title %}
+    Classroom list
+{% endblock title %}
+
+{% block body %}
+    <h1>★ 3반 서열 순위 ★</h1>
+    <br>
+    <div>
+        <a href="{% url 'classroom:new' %}">
+            <button>약자 추가</button>
+        </a>
+    </div>
+    <br>
+    <ull>
+        {% for student in students %}
+            <li>
+                <a href="{% url 'classroom:detail' student.id %}">
+                    <span> {{ student.major }} </span>
+                    <span> {{ student.name }} </span>
+                </a>  
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock body %}

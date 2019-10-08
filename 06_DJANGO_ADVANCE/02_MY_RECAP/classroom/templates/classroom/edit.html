@@ -1,0 +1,26 @@
+{% extends 'classroom/base.html' %}
+
+{% block title %}
+{% endblock title %}
+
+
+{% block body %}
+<h1>수정수정crystal~</h1>
+<form action="{% url 'classroom:update' student.id %}">
+    <div>
+        <label for="name">이름</label>
+        <input id="name" name="name" value="{{ student.name }}">
+    </div>
+    <div>
+        <label for="age">나이</label>
+        <input id="age" name="age" type="int" value="{{ student.age }}">
+    </div>
+    <div>
+        <label for="major">객관적 서열순위</label>
+        <input id="major" name="major" value="{{ student.major }}">
+    </div>
+    <div>
+        <input type="submit" value="입력">
+    </div>
+</form>
+{% endblock body %}
