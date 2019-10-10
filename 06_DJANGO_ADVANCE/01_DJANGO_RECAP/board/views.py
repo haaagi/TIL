@@ -2,11 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET, require_POST,require_http_methods
 from .forms import ArticleModelForm
 from IPython import embed
-from .models import Article
+from .models import Article, Comment
+from .forms import ArticleModelForm, CommentModelForm
 # CRUD
 
 @require_http_methods(['GET','POST'])
-def new(request):
+def new_article(request):
     if request.method == 'POST':
         form = ArticleModelForm(request.POST)
     # 요청이 GET/ POST 중 어떤 것인지 확인한다.
@@ -17,7 +18,7 @@ def new(request):
             # 유효하다면 form 을 저장한다.
             article = form.save()
             # 저장한 article 로 redirect 한다.
-            return redirect(article)   # 이건 redirect('board:detail', article.id)줄인거다.
+            return redirect(article)   # 이건 redirect('board:article_detail', article.id)줄인거다.
         # form 이 유효하지 않다면,
     # GET 이라면
     else:
@@ -29,38 +30,52 @@ def new(request):
     })
 
 
-def list(request):
+def article_list(request):
     articles = Article.objects.all()
     return render(request, 'board/list.html', {
-        'articles':articles,
+        'articles': articles,
     })
 
 @require_http_methods(['GET','POST'])
-def edit(request, id):
+def edit_article(request, article_id):
     if request.method == 'POST':  # 여긴 제출
         form = ArticleModelForm(request.POST)
         if form_is_valid():
             article = form.save()
             return redirect(article)
     else:   # 여긴 종이주세요
-        article = get_object_or_404(Article, id=id)
+        article = get_object_or_404(Article, id=article_id)
         form = ArticleModelForm(instance=article)
         return render(request, 'board/edit.html', {
             'form':form,
         })
 
-    
-
-
-
-def detail(request):
-    article = get_object_or_404(Article,id=id)
+@require_GET
+def article_detail(request, article_id):
+    article = get_object_or_404(Article, id=article_id)
+    comments = article.comment_set.all().order_by('-id')   # 마지막에 쓴걸 맨 위로 올려준다.
     return render(request, 'board/detail.html', {
         'article': article,
+        'comments':comments,
     })
 
-def delete(request):
-    pass
+
+
+@require_POST
+def new_comment(request, article_id):   # board/articles/n/comments/delete
+    article = get_object_or_404(Article, id=article_id)
+    comment = Comment()
+    comment.content = request.POST.get('comment_content')
+    comment.article_id = article.id
+    comment.save()
+    return redirect(article)
+
+
+@require_POST
+def delete_article(request, article_id):
+    article = get_object_or_404(Article, id=article_id)
+    article.delete()
+    return redirect('board:article_list')
 
 
 

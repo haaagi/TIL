@@ -5,7 +5,7 @@ Article list
 
 {% block body %}
     <h1>This is list</h1>
-    <a href="{% url 'board:new' %}">new article</a>
+    <a href="{% url 'board:new_article' %}">new article</a>
     {% if articles %}
         <ul>
             {% for article in articles %}
