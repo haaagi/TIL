@@ -4,8 +4,6 @@ from . import views
 app_name = 'board'
 
 urlpatterns = [
-    path('', views.index, name ='index'), # /board/
-    # Read 글 목록  render
     path('articles/', views.list, name='list'),
     # Read글 상세 render
     path('articles/<int:id>/', views.detail, name='detail'),

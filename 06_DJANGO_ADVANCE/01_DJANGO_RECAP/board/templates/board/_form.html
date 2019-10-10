@@ -1,23 +1,5 @@
-{% extends 'board/base.html' %}
-
-{% block title %}
-{% endblock %}
-
-{% block body %}
-<h1>Edit article</h1>
-<form method="POST">
-    {% csrf_token %}
-    <div>
-        <label for="title">제목</label>
-        <input id="title" name="title" value="{{ article.title }}">   <!-- value는 미리 채워놓는 값-->
-    </div>
-    <div>
-        <label for="content">내용:</label>
-        <textarea name="content" id="content" cols="30" rows="10">{{ article.content }}</textarea>
-    </div>
-    <div>
-        <input type="submit" value="제출">
-    </div>
+<form method ="POST">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit">
 </form>
-
-{% endblock %}
