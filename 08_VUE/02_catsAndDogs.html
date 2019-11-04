@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>cats & dogs</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="getCatImage">냐옹</button>
+        <button v-on:click="getDogImage">멍멍</button>
+        <span>냐옹 : {{ catCount }}</span>
+        <span>멍멍 : {{ dogCount }}</span>
+        <div>
+            <img 
+                v-for="image in imageUrls"
+                v-bind:src="image"
+                alt="animal-image" 
+                width="100px">
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data: {
+                // 맨 처음 app 이 load 되었을 때의 data
+                catCount: 0,
+                dogCount: 0,
+                imageUrls: [],
+            },
+            // methods 는 data 바꾸려고 하는 함수다. 
+            methods: { // methods 에서 key:value 이 부분에서 절대 ()=>{} 에로우 function 쓰면안된다. 
+                getCatImage: function () {
+                    const URL = 'https://api.thecatapi.com/v1/images/search';
+                    axios.get(URL)
+                    // axios 를 쓰면 파싱이 이미 되어있어서 json 으로 바꿔줄 필요가 없다.
+                        // .then(resJson => resJson.json())  // resJson === Json 문자열
+                        .then(res => {
+                            this.imageUrls.push(res.data[0].url);
+                            this.catCount++;
+                        })
+                },
+                getDogImage: function () {
+                    const URL = 'https://dog.ceo/api/breeds/image/random';
+                    axios.get(URL) // axios 는 응답이 이미 파싱되어있고, key data 안에 있다.
+                        // .then(resJson => resJson.json())
+                        .then(res => {
+                            this.imageUrls.push(res.data.message);
+                            this.dogCount++;
+                        })
+                },
+            },
+        })
+    </script>
+</body>
+</html>

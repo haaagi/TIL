@@ -11,6 +11,11 @@
         <!-- {{ 바로 data의 key로 접근하여 렌더링 가능 }}-->
         <h1>{{ message }}</h1>
         <P>{{ count }}</P>
+        <div>
+            <!-- plus 뒤에 괄호 ()는 인자가 있을 때 주로 쓴다. 써도되고 안써도 되는데 인자가 있으면 무조건 써줘야 한다.-->
+            <button v-on:click="plus(3)">+</button>
+            <button v-on:click="minus">-</button>
+    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
@@ -24,8 +29,8 @@
             },
             // 함수들을 정의, 보통 data를 바꿈. data 가 바뀌면 무조건 re-rendering
             methods: {
-                // vue instance 안에서는 ()=>{} 사용 금지
-                plus: function () { this.count++ },
+                // vue instance 안에서는 ()=>{} 사용 금지! 반드시 function(){}을 쓰자.
+                plus: function (n) { this.count+=n },
                 minus: function () { this.count-- },
             },
             
