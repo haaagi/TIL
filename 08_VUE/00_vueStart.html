@@ -8,16 +8,27 @@
 </head>
 <body>
     <div id="app">
-        {{ message }}
+        <!-- {{ 바로 data의 key로 접근하여 렌더링 가능 }}-->
+        <h1>{{ message }}</h1>
+        <P>{{ count }}</P>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         const app = new Vue({
+            // el: 어떤 HTML element(Node) 와 Mount(연결)
             el: '#app',
+            // Vue instance 의 시작할 때의 속성 값(=== 숫자, 문자, 배열)
             data: {
                 message: 'Hello, Vue!',
-            }
-            // el: 어떤 HTML element(Node) 와 Mount(연결)
+                count:0,
+            },
+            // 함수들을 정의, 보통 data를 바꿈. data 가 바뀌면 무조건 re-rendering
+            methods: {
+                // vue instance 안에서는 ()=>{} 사용 금지
+                plus: function () { this.count++ },
+                minus: function () { this.count-- },
+            },
+            
         });
     </script>
 </body>
