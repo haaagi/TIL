@@ -5,13 +5,15 @@ from django.urls import reverse
 class Article(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
-
-    def get_absolute_url(self):
-        return reverse("board:article_detail", kwargs={"article_id": self.pk})
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def get_absolute_url(self):  # detail page 가 있을 때
+        return reverse("board:article_detail", kwargs={"article_id": self.id})
+    
 
 class Comment(models.Model):
-    content = models.CharField(max_length=200)
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)  # CASCADE는 원 글이 삭제되면 코맨트를 같이 삭제하겠다는 말.
-
-
+    content = models.CharField(max_length=200)  # 200 넘어가면 뒤에 절삭
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

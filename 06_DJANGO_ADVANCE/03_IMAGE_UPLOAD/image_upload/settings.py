@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'e2y@h2%u2@@4yk*o(#$za+t^)94&w09+#i%vjy-7l3a#bd$dw%'
+SECRET_KEY = 'txj7b(f0mnk+lzi7k-z(e7di#12an+&39)t%+p070qane=a5s6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,12 +31,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'bootstrap4',  # 설치: $ pip install djagno-bootstrap4 / 등록: bootstrap4
+    'django_extensions',
     'django.contrib.admin',
-    'django.contrib.auth',
+    'django.contrib.auth',  # authenticate 인증
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'sns',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -103,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'UTC'
 
@@ -117,4 +121,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/'  # 우리가 사용할 js/css/images (모든 static/ 폴더를 찾겠다.)
+
+MEDIA_URL = '/media/'  # 찾을 위치
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 저장될 위치
+
+# AUTH_USER_MODEL = 'auth.User'

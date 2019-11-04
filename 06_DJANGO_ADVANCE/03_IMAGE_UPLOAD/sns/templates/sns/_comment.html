@@ -1,32 +1,24 @@
 <div class="col-12 col-md-6">
-    <div class="card mb-2">
-        <div class="card-body">
-            <form method="POST" action="{% url 'sns:create_comment' posting.id %}">
-                {% csrf_token %}
-                <label for="comment">leave comment</label>
-                <input type="text" name="content" id="comment" class="form-control" autofocus>  <!-- 이거 name을 content로 한 이유는 models.py 에서 content로 넘겨서 그걸 받아야하기때문에-->
-                <input type="submit" value="제출">
-            </form>
-        </div>
-    </div>
 
-    <div class="card">
-        <ul class="list-group list-group-flush">
-            {% if comments %}
-                {% for comment in comments %}
-                    <li class="list-group-item mb-1">
-                        {{ forloop.counter }} : {{ comment.content }}
-                        <form action="{% url 'sns:delete_comment' posting.id comment.id %}" method="POST">
-                        {% csrf_token %}
-                            <button>
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
-                    </li>
-                {% endfor %}
-            {% else %}
-                <li class="list-group-item mb-1">무플 방지 요망</li>
-            {% endif %}
-        </ul>
+  <div class="card mb-2">
+    <div class="card-body">
+      <form action="{% url 'sns:create_comment' posting.id %}" method="POST">
+        {% csrf_token %}
+        <label for="comment"><strong>{{ user }}</strong>, leave comment</label>
+        <input type="text" name="content" id="comment" class="form-control" autofocus>
+      </form>
     </div>
+  </div>
+
+  <div class="card">
+    <ul class="list-group list-group-flush">
+      {% if comments %}
+      {% for comment in comments %}
+      <li class="list-group-item mb-1">{{ comment.user }}: {{ comment.content }}</li>
+      {% endfor %}
+      {% else %}
+      <li class="list-group-item mb-1">No comments yet..</li>
+      {% endif %}
+    </ul>
+  </div>
 </div>

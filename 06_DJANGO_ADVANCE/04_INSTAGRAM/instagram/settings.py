@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9ed)p=@46z@wsn^y%zsmlxd=pb(r*v2!y(crlw#)cz=a!!k$!o'
+SECRET_KEY = 'ci_e!=!5u8(yxq!nkd!3d7p3ad!&f9vvn@)y@st6t-y08qh2z9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'bootstrap4',
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'postings',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +58,10 @@ ROOT_URLCONF = 'instagram.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            # BASE_DIR/APP/templates/ 자동으로 검색.
+            os.path.join(BASE_DIR, 'templates') # 여기(BASE_DIR/templates)도 찾아봐 주렴..
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,13 +120,16 @@ USE_L10N = True
 
 USE_TZ = True
 
+AUTH_USER_MODEL = 'accounts.User'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS=[
-    
+STATIC_URL = '/static/'  # html 에서 {% static 'MY/FILE' %} => 이게 HTML 의 접두사.
+STATICFILES_DIRS = [
+    # BASE_DIR/APP/static/ 자동으로 검색.
+    os.path.join(BASE_DIR, 'assets'),  # 여기(BASE_DIR/assets/)도 찾아봐 주렴..
 ]
-MEDIA_URL = '/media/'
+
+MEDIA_URL = '/media/'  
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

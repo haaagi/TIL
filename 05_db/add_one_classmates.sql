@@ -1,3 +1,2 @@
--- SQLite
-insert into classmates(name, age) 
-VALUES ('홍수경', 26);
+INSERT INTO classmates(name, age)
+VALUES('김재석', 100);

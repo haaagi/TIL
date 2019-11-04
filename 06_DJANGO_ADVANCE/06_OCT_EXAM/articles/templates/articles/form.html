@@ -2,12 +2,10 @@
 
 {% block body %}
 <form method="POST">
-    <!-- csrf 는 {%-->
+    <!-- csrf 는 {%  -->
     {% csrf_token %}
-
-    <!-- form 은 {{-->
+    <!-- form 은 {{  -->
     {{ form.as_p }}
     <input type="submit">
-
 </form>
 {% endblock %}

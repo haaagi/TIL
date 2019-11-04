@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+# BASE_DIR == 프로젝트 폴더
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -20,18 +21,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@@pvqjsv7o-grr(^6+we6n9o)va6s-wicu(j$4rsh(x)(ntp*0'
+SECRET_KEY = '4o@k%xk3ah_*ri4q=!+*m-=6w5ph*5_^lvz#io0=j)ia(%!$#*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
-    'django_extensions', # 이건 반드시 _ 써줘야한다.
+    'django_extensions',  # 반드시 underbar_
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'board',
+    'poll',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,11 @@ ROOT_URLCONF = 'django_recap.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # 프로젝트 전체에서 공통으로 쓸 HTML을 어디에 두고, 어떻게 찾을 것인가.
+        # django 는 템플릿(html)을 찾을 때 기본적으로 INSTALLED_APPS 안의 templates/ 폴더에서 찾는다.
+        # 아래 코드는 추가적으로 찾고싶은 위치를 우리가 지정하는 것이다.
+        # BASE_DIR 은 프로젝트 폴더를 의미하므로, 최종적으로 01_DJANGO_RECAP/django_recap/templates 폴더도 찾아달라는 의미이다.
+        'DIRS': [os.path.join(BASE_DIR, 'django_recap', 'templates')],  
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,9 +111,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+# TimeZone 을 Asia/Seoul 로 바꾸면, 알아서 표시되는 시간이 바뀐다!
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
