@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>identicon</title>
+</head>
+<body>
+    <h1>Identicon Generator</h1>
+    <div id="app">
+        <div>
+            <input type="text"
+                v-model="newText"
+                v-on:keyup="addIcon"
+            >
+        </div>
+
+        Output
+        <div v-html="image">
+            
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.rawgit.com/dmester/jdenticon/5bbdf8cb/dist/jdenticon.min.js"></script>
+    <script>
+        /*  
+            1. input 의 value 를 넣는다
+            2. value 를 jdenticon.toSvg(여기,200) 에 넣는다.
+            3. jdenticon.toSvg(value,200) 의 리턴값을 화면에 보여준다.
+        */
+        const app = new Vue({
+            el: '#app',
+            data: {
+                newText:'',
+                image :''
+            },
+            methods: {
+                addIcon: function () {
+                    this.image = jdenticon.toSvg(this.newText,200)
+                }
+            },
+            computed: {
+                
+            },
+        })
+
+    </script>
+</body>
+</html>

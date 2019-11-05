@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // JS Global(전역) 변수
+        glob1 = 1;
+        for (t=0; t<10; t++){  // var, let 이런거 안붙여주면 전역변수다 
+            glob2 = 11;
+        }
+        function qq(){
+            glob3 = 111;
+        }
+        qq();
+        
+        // var: function scope
+        for (var i=0; i<10; i++){
+            var j = 100;
+        };
+        console.log(i,j);
+
+        function aa() {
+            var a = 1;
+        }
+        aa()
+        console.log(a);
+        // let/const: block scope : {}를 말함 중괄호 세상 밖에서 접근이안됌. 이거 실행해도 x, y 안뜬다. 
+        for (let x=0; x<10; x++){
+            let y = 100;
+        }
+        console.log(x,y)
+    </script>
+</body>
+</html>
