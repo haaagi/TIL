@@ -7,3 +7,6 @@ const me = {  // Object - 객체
         laptop: 'macbook pro',
     },
 };
+
+me.electronicDevice.phone
+me['electronicDevice']['phone']

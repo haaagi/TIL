@@ -16,6 +16,7 @@
     <div id="js-content-area">
 
     </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
      const url = 'https://koreanjson.com';
      const btn1 = document.querySelector('#js-data-load-btn');
@@ -43,6 +44,14 @@
             })
             .catch(err => console.error(`${err}`));
      });
+     btn3.addEventListener('click', () => {
+         axios.get(`${url}/posts/${postId++}`)
+            .then(res => res.data)
+            .then(data => {
+                area.innerHTML += `<p>${data.title}</p>`
+            })
+            .catch(err => console.error(err))  // 위에가 실행되다가 뻑나면 요기로 와서 err를 띄워줌 catch 는 한번만 써주면 된다. 
+     })
     </script>
     
 </body>

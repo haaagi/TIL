@@ -3,6 +3,8 @@ const likeButtons = document.querySelectorAll('.js-like-buttons')
 likeButtons.forEach(likeButton => {
     likeButton.addEventListener('click', function(event){
         const URL = `${event.target.dataset.id}/like/`;
+        axios.defaults.xsrfCookieName = 'csrftoken'
+        axios.defaults.xsrfHeaderName = 'X-CSRFToken'
         axios.get(URL)
             .then((res) => {
                 if (res.data.liked) {
