@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: 'SeartchBar', // new component 0. 이름적기
+    name: 'SearchBar', // new component 0. 이름적기
     methods: {
         onInput (e) {
             // this.$ 이거는 특수한 애들이 몇개 있는데 emit() 은 이거 함수가 이미 정의되있음. 

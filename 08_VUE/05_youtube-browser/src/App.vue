@@ -13,10 +13,10 @@
                 :videos="videos"
                 @videoSelect="onVideoSelect"
             >
-
             </VideoList>
+            <div class="static" v-bind:class="{ active: isActive, error: hasError }"></div>
         </div>
-       
+
     </div>
 </template>
 
@@ -40,6 +40,8 @@
             return {
                 videos: [], // 이거 처음에 빈 값이라도해도 이렇게 선언해줘야 한다. 
                 selectedVideo: null,
+                isActive: true,
+                hasError: false,
             }
         },
         methods: {
