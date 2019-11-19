@@ -12,13 +12,13 @@
             </div>
             <div class="form-group">
                 <label for="username">ID</label>
-                <input @key-up.enter="login" v-model="credentials.username" type="text" class="form-control" id="username"
+                <input @keyup.enter="login" v-model="credentials.username" type="text" class="form-control" id="username"
                     placeholder="아이디를 입력해주세요">
                 <!-- input에 id 써준이유는 그 위에 label 이랑 엮어주려고 한다. 현재 data에 username 없지만 credentials 만있으면 일단 된다.  -->
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input @key-up.enter="login" v-model="credentials.password" type="password" class="form-control" id="password"
+                <input @keyup.enter="login" v-model="credentials.password" type="password" class="form-control" id="password"
                     placeholder="비밀번호를 입력해주세요">
             </div>
             <button @click="login" class="btn btn-primary">로그인</button>
@@ -27,12 +27,16 @@
 </template>
 
 <script>
+    import router from '../router'  // router의 index.js는 알아서 찾아간다. 
     const axios = require('axios'); // 이게 es6 전에 모듈 부르는 방식 
     export default {
         name: 'LoginForm',
         data() {
             return {
-                credentials: {}, // 1. id/password 에 해당하는 data
+                credentials: {
+                    username:'',
+                    password:'',
+                }, // 1. id/password 에 해당하는 data
                 isauthenticated: false, // 인증 여부 
                 isLoading: false,
                 errors: [],
@@ -42,10 +46,26 @@
             login() {
                 this.isLoading = true;
                 if (this.checkUserInput()) {
-                    console.log('django 서버로 데이터를 보냅니다.');
-                    axios.get('http://localhost:8000', this.credentials)
-                        .then(res => console.log(res))
-                        .catch(err => console.error(err));
+                    axios.post('http://localhost:8000/api-token-auth/', this.credentials)
+                        .then(res => {
+                            this.isLoading = false;
+                            this.$sessiong.start();  // sessionStorage.session-id : sess + Date.now()
+                            this.$session.set('jwt', res.data.token);
+                            router.push('/');
+                        })
+                        .catch(err => {
+                            if (!err.response) {
+                                this.errors.push('Network Error...')
+                            }
+                            else if (err.response.status === 400) {
+                                this.errors.push('Invalid username or password')
+                            } else if (err.response.status === 500) {
+                                this.errors.push('Internal Server error. Please try again later')
+                            } else {
+                                this.errors.push('Something Wrong')
+                            }
+                            this.isLoading = false;
+                        });
                 }
             
                 else {
